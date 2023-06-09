@@ -1,50 +1,28 @@
-//what is a called back function?
-//a function passed into another funciton asnan argument
+//callback is a function that is passed as an argument to another function and is invoked inside that function at a certain point or upon completion of an asynchronous operation. 
+//Callbacks are commonly used in JavaScript for handling asynchronous code and executing code after an operation has finished.
+//Callback hell refers to the situation where callbacks are nested within each other, resulting in deeply nested and hard-to-read code. 
+//It occurs when there are multiple asynchronous operations that depend on each other, and the code becomes difficult to follow due to the indentation and callback functions being passed as arguments to other callback functions
+//Problematic:Readability and Maintainability, Error Handling, Code Reusability
 
-//what is a callback hell?
-//multiple callbacks are nested on top of eachother
-//difficult to understand and maintain
+asyncHell1(function (error, result1) {
+    if (error) {
+      console.error('Error in operation 1:', error);
+    } else {
+      asyncHell2(result1, function (error, result2) {
+        if (error) {
+          console.error('Error in operation 2:', error);
+        } else {
+          asyncHell3(result2, function (error, result3) {
+            if (error) {
+              console.error('Error in operation 3:', error);
+            } else {
+              // Continue with more nested callbacks...
+            }
+          });
+        }
+      });
+    }
+  });
 
-//how do they occur?
-//occurs when we have multiple operations that depends on eachother
-
-acynOp1(function(result1)){
-
-    acynOp2(function(result2)){
-
-        acynOp3(function(result3)){
-
-            acynOp4(function(result4)){
-
-                acynOp5(function(result5)){
-
-
-                });
-                });
-            });
-        });
-    });
-
-    acynOp1()
-    .then(function(result1){
-return asyncOp2();
-    })
-    acynOp1()
-    .then(function(result2){
-return asyncOp3();
-    })
-    acynOp1()
-    .then(function(result3){
-return asyncOp4();
-    })
-    acynOp1()
-    .then(function(result4){
-return asyncOp5();
-    })
-    acynOp1()
-    .then(function(result5){
-return asyncOp5();
-    })
-    
-    .catch(function(error){
-});
+  //To avoid callback hell, modern JavaScript introduced alternative approaches like Promises and async/await
+  // These provide more structured and readable ways to handle asynchronous operations, allowing for sequential and error-handling code without deep nesting
